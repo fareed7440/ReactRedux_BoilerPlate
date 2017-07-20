@@ -1,23 +1,27 @@
-import signupRequest from '../store/Action/action'
+import todoRequst from '../store/Action/action'
+import getRequest from '../store/Action/getAction'
 import { connect } from 'react-redux'
-import SignUp from '../component/singup'
+import AddTodo from '../component/singup'
 
 
 function mapStateToProps(state) {
     console.log('state', state)
     return {
-      
+       todos: state.todooReducer,
+       getdata : state.getReducer
+       
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-      
+     AddTodo : (text) => dispatch(todoRequst(text)),
+     getData : (data)=>dispatch(getRequest(data))
 
     }
 
 }
 
-const SignUpCon = connect(mapStateToProps, mapDispatchToProps)(SignUp)
+const TodoCon = connect(mapStateToProps, mapDispatchToProps)(AddTodo)
 
-export default SignUpCon;
+export default TodoCon;

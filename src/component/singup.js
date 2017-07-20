@@ -1,32 +1,20 @@
 import React from 'react'
 import './signup.css'
 
-class SignUp extends React.Component {
+class AddTodo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
-            password: '',
-            email: ''
+            text: '',
+            items : []
         }
-        this.handleForm = this.handleForm.bind(this);
-        this.handleInput = this.handleInput.bind(this);
+        this.addTodo = this.addTodo.bind(this);
+  // this.handleChange = this.handleChange.bind(this);
+    this.handleInput = this.handleInput.bind(this);
+
 
     }
-    handleForm = (event) => {
-        event.preventDefault();
-        let name = this.refs.name.value.trim()
-        let email = this.refs.email.value.trim()
-        let password = this.refs.password.value.trim()
-        let signupObj = {
-            name: name,
-            email: email,
-            password: password
-        }
-        console.log('Signup Object', signupObj);
-        this.props.SignUpReq(signupObj);
-    }
-    handleInput = (event) => {
+      handleInput = (event) => {
         const target =event.target;
         const value =target.type ==='checkbox' ? target.checked : target.value;
         const name =target.name;
@@ -36,38 +24,62 @@ class SignUp extends React.Component {
     }
 
 
+ addTodo = (event) => {
+     event.preventDefault();
+       const data = this.refs.addTodo.value.trim()
+       const id = Date.now();
+       var obj = {
+           data:data,
+           id:id
+       }
+        this.setState((prevState) => ({
+      items: prevState.items.concat(obj),
+      text: ''
+    }));
+
+   this.props.AddTodo(obj)
+
+
+    }
+
+    //   componentDidMount() {
+    //        this.props.AddTodo();
+    //        console.log('ffffffffff', this.props.AddTodo())
+    //     }
+
     render() {
+         const viewtodo = this.props && this.props.todos && this.props.todos.todoReducer ? this.props.todos.todoReducer : [];
+        console.log('todooo', viewtodo);
+        console.log('propss',)
+
+
         return (
             <div>
-                <h1>SIGNUP PAGE</h1>
-                <form 
-                className ="forms"
-                onSubmit={this.handleForm}>
-                    <input
-                        name='name'
-                        ref='name'
-                        type='text'
-                        placeholder="Enter Your Name"
-                        onChange={this.handleInput}
-                    /><br /><br /><br />
-                    <input
-                        name='email'
-                        ref='email'
-                        type='email'
-                        placeholder="Enter Valid Email"
-                    /><br /><br /><br />
-                    <input
-                        name='password'
-                        ref='password'
-                        type='password'
-                        placeholder="Enter Password"
-                    /><br /><br /><br />
+<form className = 'forms' onSubmit ={this.addTodo} >
+                <input
+                className = "centerd"
+                    name='name'
+                    ref="addTodo"
+                    type='text'
+                    onChange={this.handleInput}
 
-                    <button
-                        type='submit'
-                    >SignUp</button>
-                </form>
+                />
+                <br/>
+                <button type ='submit'> Add Todo</button>  {''}
+                  <button onClick={this.props.getData}> get Todo</button>
+</form>
+                <div>
+                    <h1>todo list</h1><br/><br/>
+              <ol>
+        {viewtodo.map(item => (
+          <li key={item.id}>{item.data}</li>
+        ))}
+      </ol>
+      
+
+                </div>
             </div>
+
         )
     }
 
@@ -75,4 +87,4 @@ class SignUp extends React.Component {
 }
 
 
-export default SignUp;
+export default AddTodo;

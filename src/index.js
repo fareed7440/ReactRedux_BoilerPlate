@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import store from './store/store'
 import { Provider } from 'react-redux';
-import SignUpCon from './container/signup'
+import TodoCon from './container/signup'
 import registerServiceWorker from './registerServiceWorker';
 import {
     browserHistory, Router, Route, 
@@ -15,7 +15,7 @@ class Routing extends React.Component {
             <div>
                 <Provider store={store}>
                     <Router history={browserHistory}>
-                        <Route path="/signup" component={SignUpCon}></Route>
+                        <Route path="/" component={TodoCon}></Route>
                     </Router>
                 </Provider>
             </div>
