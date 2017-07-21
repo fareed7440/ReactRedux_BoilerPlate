@@ -7,7 +7,7 @@ import AddTodo from '../component/singup'
 function mapStateToProps(state) {
     console.log('state', state)
     return {
-       todos: state.todooReducer,
+       todos: state.todooReducer.data,
        getdata : state.getReducer
        
     }

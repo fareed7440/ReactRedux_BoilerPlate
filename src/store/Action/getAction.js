@@ -3,11 +3,12 @@ import ActionType from './actionType';
 import * as DB from '../../firebase/firebase'
 import axios from 'axios';
 const arr = [];
-function getRequest(data){
-    console.log('datqq',data)
+function getRequest(){
+
          return dispatch => {
         dispatch(GetRequest());
-         axios.get('http://localhost:8081/api/bears', {
+         axios.get('http://localhost:8081/api/get', {
+             
       headers: {
         'Content-Type': 'application/xml, text/xml',
         'Accept': 'application/xml, text/plain, * / *'
@@ -16,16 +17,15 @@ function getRequest(data){
 
     })
       .then(function (response) {
-        console.log("gettttttttttttttttt", response);
-
+        console.log("gettttttttttttttttt", response.data);
+           dispatch(GetRequestSuccess(response.data))
       })
       .catch(function (error) {
         console.log(error);
       });
-      arr.push(data);
-console.log('arrr', arr)
+ 
 
-    dispatch(GetRequestSuccess(arr))
+   
 
     }}
 

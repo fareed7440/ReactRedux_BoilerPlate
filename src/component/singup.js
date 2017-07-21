@@ -6,40 +6,45 @@ class AddTodo extends React.Component {
         super(props);
         this.state = {
             text: '',
-            items : []
+            items: []
         }
         this.addTodo = this.addTodo.bind(this);
-  // this.handleChange = this.handleChange.bind(this);
-    this.handleInput = this.handleInput.bind(this);
-
-
+        // this.refreshPage = this.refreshPage.bind(this);
+        this.handleInput = this.handleInput.bind(this);
     }
-      handleInput = (event) => {
-        const target =event.target;
-        const value =target.type ==='checkbox' ? target.checked : target.value;
-        const name =target.name;
+    refreshPage() {
+        window.location.reload();
+    }
+    componentDidMount() {
+        this.props.getData()
+        console.log('didmount', this.props.getData)
+    }
+    handleInput = (event) => {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
         this.setState({
             [name]: value
         })
     }
 
 
- addTodo = (event) => {
-     event.preventDefault();
-       const data = this.refs.addTodo.value.trim()
-       const id = Date.now();
-       var obj = {
-           data:data,
-           id:id
-       }
+    addTodo = (event) => {
+        event.preventDefault();
+        const data = this.refs.addTodo.value.trim()
+        const id = Date.now();
+        var obj = {
+            data: data,
+            id: id
+        }
         this.setState((prevState) => ({
-      items: prevState.items.concat(obj),
-      text: ''
-    }));
+            items: prevState.items.concat(obj),
+            text: ''
+        }));
 
-   this.props.AddTodo(obj)
-
-
+        this.props.AddTodo(obj)
+         
+        
     }
 
     //   componentDidMount() {
@@ -48,34 +53,38 @@ class AddTodo extends React.Component {
     //     }
 
     render() {
-         const viewtodo = this.props && this.props.todos && this.props.todos.todoReducer ? this.props.todos.todoReducer : [];
-        console.log('todooo', viewtodo);
-        console.log('propss',)
+        //  const viewtodo = this.props && this.props.todos && this.props.todos.todoReducer ? this.props.todos.todoReducer : [];
+        //  console.log('sendData', viewtodo)
+        // JSON.parse(viewtodo)
+        const alldata = this.props && this.props.getdata && this.props.getdata.getsReducer ? this.props.getdata.getsReducer : [];
+        console.log('todooo', alldata)
+
+
 
 
         return (
             <div>
-<form className = 'forms' onSubmit ={this.addTodo} >
-                <input
-                className = "centerd"
-                    name='name'
-                    ref="addTodo"
-                    type='text'
-                    onChange={this.handleInput}
+                <form className='forms' onSubmit={this.addTodo} >
+                    <input
+                        className="centerd"
+                        name='name'
+                        ref="addTodo"
+                        type='text'
+                        onChange={this.handleInput}
 
-                />
-                <br/>
-                <button type ='submit'> Add Todo</button>  {''}
-                  <button onClick={this.props.getData}> get Todo</button>
-</form>
+                    />
+                    <br />
+                    <button type='submit'  > Add Todo</button>  {''}
+                    {/*<button onClick={this.props.getData}> get Todo</button>*/}
+                </form>
                 <div>
-                    <h1>todo list</h1><br/><br/>
-              <ol>
-        {viewtodo.map(item => (
-          <li key={item.id}>{item.data}</li>
-        ))}
-      </ol>
-      
+                    <h1>todo list</h1><br /><br />
+                    <ol>
+                        {alldata.map(item => (
+                            <li key={item.id}>{item.data}</li>
+                        ))}
+                    </ol>
+
 
                 </div>
             </div>

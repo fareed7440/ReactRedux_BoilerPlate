@@ -4,17 +4,38 @@ import axios from 'axios';
 
 const arr = [];
 function todoRequst(data) {
+   // const  assign = data.data;
     console.log('dataaaaaa', data)
     return dispatch => {
         dispatch(SignupRequest());
-          axios.post('http://localhost:8081/api/bears', {
-data
-    }, {   
-        'Access-Control-Allow-Origin': '*'
+
+
+
+//  axios.post('http://localhost:8081/api/bears', data, headers)
+
+//             .then((response) => {
+//                 dispatch({type: FOUND_USER, data: response.data[0]})
+//             })
+//             .catch((error) => {
+//                 dispatch({type: ERROR_FINDING_USER})
+//             })
+
+
+          axios.post('http://localhost:8081/api/bears',data, Headers,{
+         
+        'Access-Control-Allow-Origin': '*',
+       
       })
       
       .then(function (response) {
+          dispatch({
+            type:ActionType.ADD_TODO_SUCCESS, data : response.data[0]
+          })
         console.log("postttttttt", response);
+              
+        // arr.push(assign);
+        // console.log('arrr', arr)
+
       })
 
       .catch(function (error) {
@@ -22,7 +43,7 @@ data
       });
   
   
-arr.push(data);
+
 console.log('arrr', arr)
 
 // axios.get('http://localhost:8081/user', {
@@ -47,7 +68,7 @@ console.log('arrr', arr)
 //         console.log(error);
 //       });
 
-       dispatch(TodoRequestSuccess(arr));
+       dispatch(TodoRequestSuccess(data));
 
 
 
