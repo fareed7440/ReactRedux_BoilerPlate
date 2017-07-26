@@ -9,6 +9,13 @@ h1{
       font-family: "SIMPSON";
       margin-top: 80px;
 }
+li{
+  font-size: 20px;
+}
+.check{
+  height: 20px;
+  margin-left: auto;
+}
    body
 {
     background-color : #D3D3D3;

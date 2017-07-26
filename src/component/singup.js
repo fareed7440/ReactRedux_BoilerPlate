@@ -9,15 +9,22 @@ class AddTodo extends React.Component {
             items: []
         }
         this.addTodo = this.addTodo.bind(this);
-        // this.refreshPage = this.refreshPage.bind(this);
+         this.refreshPage = this.refreshPage.bind(this);
         this.handleInput = this.handleInput.bind(this);
+          this.delete = this.delete.bind(this);
     }
+  
     refreshPage() {
-        window.location.reload();
+         setTimeout (()=>{
+            
+                  window.location.reload();
+            
+        },300
+        )
+      
     }
-    componentDidMount() {
-        this.props.getData()
-        console.log('didmount', this.props.getData)
+    componentDidMount(){
+       this.props.getData()
     }
     handleInput = (event) => {
         const target = event.target;
@@ -45,6 +52,10 @@ class AddTodo extends React.Component {
         this.props.AddTodo(obj)
          
         
+    }
+    delete(id){
+ 
+   this.props.deleteData(id)
     }
 
     //   componentDidMount() {
@@ -74,14 +85,22 @@ class AddTodo extends React.Component {
 
                     />
                     <br />
-                    <button type='submit'  > Add Todo</button>  {''}
+                    <button type='submit' onClick = {this.refreshPage} > Add Todo</button>  {''}
                     {/*<button onClick={this.props.getData}> get Todo</button>*/}
                 </form>
                 <div>
                     <h1>todo list</h1><br /><br />
                     <ol>
                         {alldata.map(item => (
-                            <li key={item.id}>{item.data}</li>
+                                <li key={item.id}>{item.data}
+                                    <button 
+                                    onClick = {this.props.deleteData}
+                                    
+                                    >delete</button>
+                      {/*<input 
+                    
+                       className = 'check' type="checkbox" name='delete'/> */}
+                            </li>
                         ))}
                     </ol>
 
